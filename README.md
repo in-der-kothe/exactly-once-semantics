@@ -1,10 +1,7 @@
-# Delivery Guarantees
+# Delivery Guarantees in Distributed Systemns
 
-Im folgenden wollen wir uns damit wie ich sicher stellen kann dass in einem verteilen System, eine operation wirklich genau einmal passiert. Nicht keinmal, nicht mehrmal, sondern genau einmal.
+The purpose of this repository is to raise awareness to the fallacies of distributed computing. It provides explantions and strategies to handle with these problems.
 
-Das Zwei Generäle Dinge vorstellen.
-
-Die Kollegen selber nachdenken lassen
-
-* Branch wechseln!
-
+The repository is divided in sevaral branches which represent the different chapters / learnings:
+- The `theory` branches explaining the problems and gedankenexperiments. 
+- The `code` branches provide code for exploring the programmatic strategies.
