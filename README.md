@@ -6,5 +6,5 @@ Das Zwei Generäle Dinge vorstellen.
 
 Die Kollegen selber nachdenken lassen
 
-* Branch wechseln
+* Branch wechseln!
 
