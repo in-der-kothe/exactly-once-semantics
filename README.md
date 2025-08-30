@@ -16,7 +16,7 @@ Risk: messengers could be caught, compromised, exchanged, ...
 ![the problem](the-two-generals.png)
 
 > [!CAUTION]
-> How should the protocol look like to ensure the communication?
+> **How should the protocol look like to ensure the communication?**
 
 ## Example
 
