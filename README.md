@@ -1,6 +1,6 @@
 # The two generals - The problem
 
-(inspired by https://blog.bulloak.io/post/20200910-two-generals-problem/)
+> inspired by https://blog.bulloak.io/post/20200910-two-generals-problem/
 
 Two armies (red and blue). The blue one is in a vally and on opposite mountains the red one is deployed with one general for ervery side.
 
@@ -14,11 +14,21 @@ Risk: messengers could be caught, compromised, exchanged, ...
 
 ![the problem](the-two-generals.png)
 
-**Task: How should the protocol look like to en sure the communication?**
+> [!CAUTION]
+> How should the protocol look like to ensure the communication?
 
 ## Example
 
-How can the generals be sure, that the messege went through?
+> Try diagrams by yourself (the examples in this readme are working in the preview): \
+> https://mermaid.live/edit\
+> VSCode Plugin: https://marketplace.visualstudio.com/items?itemName=MermaidChart.vscode-mermaid-chart\
+
+How can the generals be sure, that the messeges went through?
+
+```mermaid
+sequenceDiagram
+    General LEFT-X+General RIGHT: We attak at noon!
+```
 
 ```mermaid
 sequenceDiagram
