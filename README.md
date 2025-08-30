@@ -1,5 +1,6 @@
 # The two generals - The problem
 
+> [!TIP]
 > inspired by https://blog.bulloak.io/post/20200910-two-generals-problem/
 
 Two armies (red and blue). The blue one is in a vally and on opposite mountains the red one is deployed with one general for ervery side.
@@ -19,6 +20,7 @@ Risk: messengers could be caught, compromised, exchanged, ...
 
 ## Example
 
+> [!TIP]
 > Try diagrams by yourself (the examples in this readme are working in the preview): \
 > https://mermaid.live/edit\
 > VSCode Plugin: https://marketplace.visualstudio.com/items?itemName=MermaidChart.vscode-mermaid-chart\
