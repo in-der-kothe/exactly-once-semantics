@@ -1,6 +1,6 @@
 # The two generals - The problem
 
-> [!TIP]
+> [!NOTE]
 > inspired by https://blog.bulloak.io/post/20200910-two-generals-problem/
 
 Two armies (red and blue). The blue one is in a vally and on opposite mountains the red one is deployed with one general for ervery mountain side.
