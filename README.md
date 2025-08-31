@@ -9,4 +9,4 @@ The repository is divided in sevaral branches which represent the different chap
 Educational trail:
 1. [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
 2. [Common Knowledge](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/common-knowledge)
-3. [Impossible problem?](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/impossible-problem)
+3. [Exactly one delivery](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/exactly-once-delivery)
