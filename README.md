@@ -1,12 +1,14 @@
-# Delivery guarantees in distributed systemns
+# The eight fallacies of distributed computing
 
-The purpose of this repository is to raise awareness to the fallacies of distributed computing. It provides explantions and strategies to handle with these problems.
+Originated at sun microsystems - L. Peter Deutsch, one of the original sun 'fellows', first created a list of seven fallacies in 1994 around 1997
 
-The repository is divided in sevaral branches which represent the different chapters / learnings:
-- The `theory` branches explaining the problems and thought experiments. 
-- The `code` branches provide code for exploring the programmatic strategies.
+James Gosling, another sun fellow and the inventor of Java, added the eighth fallacy
 
-Educational trail:
-1. [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
-2. [Common Knowledge](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/common-knowledge)
-3. [Exactly one delivery](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/exactly-once-delivery)
+1. The network is reliable
+2. Latency is zero
+3. Bandwidth is infinite
+4. The network is secure
+5. Topology doesn't change
+6. There is one administrator
+7. Transport cost is zero
+8. The network is homogeneous
