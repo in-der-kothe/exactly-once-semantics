@@ -10,3 +10,4 @@ Educational trail:
 1. [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
 2. [Common Knowledge](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/common-knowledge)
 3. [Exactly one delivery](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/exactly-once-delivery)
+3. [The eight fallacies](hhttps://github.com/in-der-kothe/exactly-once-semantics/tree/theory/fallacies)
