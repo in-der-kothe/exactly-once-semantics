@@ -95,5 +95,5 @@ Instead of 1000€ we should see, that we transferred much less.
 
 How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
-[^1]: IntelliJ - this should work out-of-the-box
+[^1]: IntelliJ - this should work out-of-the-box\
 VS Code - you need this plugin: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
