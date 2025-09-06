@@ -17,9 +17,9 @@ Each entry in the database will be one transaction.
 
 The API is pretty simple.
 
-I provided a file with the configured rest endpoints: `payment.http`
+I provided a file with the configured rest endpoints: [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http)
 
-You can execute those requests directly by clicking into the file. In Intellij this should work without any special plugin and in case of VS Code you need this plugin
+You can execute those requests directly by clicking into the file.[^1]
 
 * VS Code: Rest Client from humao (humao.rest-client)
 
@@ -43,15 +43,15 @@ Now you should be able to use the configured rest endpoints form `payment.http` 
 
 Let's take this tour (please have the picture above in mind): \
 Use WITHOUT proxy
-1. from payment.http -> use the stats endpoint to assert no money has been transferred
-2. from payment.http -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from payment.http -> use the stats endpoint to assert the one € has been transfered
+1. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the stats endpoint to assert no money has been transferred
+2. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the _direct_ connected POST payments endpoint to transfered one €.
+3. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the stats endpoint to assert the one € has been transfered
 
 Use WITH proxy / configure proxy
-1. from payment.http -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
-2. from toxy.http -> use configure proxy to configure a toxy proxy 
-3. from payment.http -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from payment.http -> use the stats endpoint to verify that the payment has been processed
+1. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
+2. from [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http) -> use configure proxy to configure a toxy proxy 
+3. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the toxy proxy version of the POST endpoint to transfer one €
+4. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the stats endpoint to verify that the payment has been processed
 
 Now we check that it works for one thousand payments.
 
@@ -67,9 +67,9 @@ pip install -r requirements.tx
 
 Now check this thousand transactions
 
-1. from payment.http -> use the delete endpoint to clear all transactions
+1. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the delete endpoint to clear all transactions
 2. run the python script: `python3 mass_test.py`
-3. from payment.http -> use status endpoint to assert 1000 € has been transferred.
+3. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use status endpoint to assert 1000 € has been transferred.
 
 Looks good.
 
@@ -77,10 +77,10 @@ But what will happen when the network connection is unstable?
 
 Now, we configure toxi proxy to have:
 
-* a broken connection before the request reaches the payment services, with a likelyhood of 30%
-* a broken connection after the request should return to client, again with a likelyhood of 30%
+* a broken connection **before** the request reaches the payment services, with a likelyhood of 30%
+* a broken connection **after** the request should return to client, again with a likelyhood of 30%
 
-To do so, use the following endpoints from `toxy.http`
+To do so, use the following endpoints from [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http)
 
 * set upstream-reset-peer toxic
 * set downstream-reset-peer toxic
@@ -95,5 +95,5 @@ Instead of 1000€ we should see, that we transferred much less.
 
 How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
-
-
+[^1]: IntelliJ - this should work out-of-the-box
+VS Code - you need this plugin: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
