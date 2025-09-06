@@ -4,3 +4,4 @@
 venv
 *.class
 payment/target
+payment/venv
