@@ -14,3 +14,33 @@ POST http://localhost:8474/populate
     }
   ]
 
+### set upstream-reset-peer toxic
+POST http://localhost:8474/proxies/payment/toxics
+
+        {
+          "name": "reset-peer-upstream",
+          "type": "reset_peer",
+          "stream": "upstream",
+          "toxicity": 0.3,
+          "attributes": {
+            "timeout": 1
+          }
+        }
+
+### set downstream-reset-peer toxic
+POST http://localhost:8474/proxies/payment/toxics
+
+        {
+          "name": "reset-peer-downstream",
+          "type": "reset_peer",
+          "stream": "downstream",
+          "toxicity": 0.3,
+          "attributes": {
+            "timeout": 1
+          }
+        }
+
+### reset toxy proxy
+
+POST http://localhost:8474/reset
+

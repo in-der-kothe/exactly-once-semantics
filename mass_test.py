@@ -17,4 +17,7 @@ for outgoing_payment in outgoing_payments:
         "dest"  : outgoing_payment['dest'],
         "amount": outgoing_payment['amount']
     }
-    requests.post('http://localhost:8888/payments/', json=payload)
+    try:
+        requests.post('http://localhost:8888/payments/', json=payload)
+    except Exception as e:
+        print("fail...")

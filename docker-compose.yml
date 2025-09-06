@@ -5,7 +5,7 @@ services:
     ports:
       - 8080:8080
   toxy:
-    image: shopify/toxiproxy
+    image: dancier/toxiproxy
     restart: always
     ports:
       - "8474:8474"

@@ -51,7 +51,7 @@ Use WITH proxy / configure proxy
 1. from payment.http -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
 2. from toxy.http -> use configure proxy to configure a toxy proxy 
 3. from payment.http -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from payment.http -> use the stats endpoint to verify
+4. from payment.http -> use the stats endpoint to verify that the payment has been processed
 
 Now we check that it works for one thousand payments.
 
@@ -74,6 +74,26 @@ Now check this thousand transactions
 Looks good.
 
 But what will happen when the network connection is unstable?
+
+Now, we configure toxi proxy to have:
+
+* a broken connection before the request reaches the payment services, with a likelyhood of 30%
+* a broken connection after the request should return to client, again with a likelyhood of 30%
+
+To do so, use the following endpoints from `toxy.http`
+
+* set upstream-reset-peer toxic
+* set downstream-reset-peer toxic
+
+
+
+* delete all transactions with the delete Endpoint in `payment.http`.
+* Run the script again: `python3 mass_test.py`
+* check again with the stats endpoint from `payment.http` how much money was transferred
+
+Instead of 1000€ we should see, that we transferred much less.
+
+How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
 
 
