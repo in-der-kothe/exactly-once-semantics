@@ -1,0 +1,29 @@
+# How much money has been transfered?
+
+GET http://localhost:8080/stats
+
+### Delete all transactions in the system
+
+DELETE http://localhost:8080/payments/
+
+### Let bianca transfer exactly one (€) to marc (direct connection to the payment service)
+
+POST http://localhost:8080/payments/
+Content-Type: application/json
+
+{
+    "src": "bianca",
+    "dest":  "marc",
+    "amount": 1
+}
+
+### Let bianca transfer exactly one (€) to marc (through toxy proxy)
+
+POST http://localhost:8888/payments/
+Content-Type: application/json
+
+{
+  "src": "bianca",
+  "dest":  "marc",
+  "amount": 1
+}

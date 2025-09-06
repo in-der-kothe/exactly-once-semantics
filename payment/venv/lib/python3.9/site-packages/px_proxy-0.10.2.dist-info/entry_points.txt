@@ -1,0 +1,5 @@
+[console_scripts]
+px = px.main:main
+
+[gui_scripts]
+pxw = px.main:main

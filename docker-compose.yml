@@ -1,0 +1,12 @@
+services:
+  payment:
+    build:
+      context: payment
+    ports:
+      - 8080:8080
+  toxy:
+    image: shopify/toxiproxy
+    restart: always
+    ports:
+      - "8474:8474"
+      - "8888:8888"

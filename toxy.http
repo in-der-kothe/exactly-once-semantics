@@ -1,0 +1,16 @@
+### Get Toxy Proxy Configuration
+
+GET http://localhost:8474/proxies
+
+### Configure Proxy
+POST http://localhost:8474/populate
+
+  [
+    {
+      "name": "payment",
+      "listen": "0.0.0.0:8888",
+      "upstream": "payment:8080",
+      "enabled": true
+    }
+  ]
+
