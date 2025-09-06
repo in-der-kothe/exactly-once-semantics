@@ -1,4 +1,4 @@
-# Delivery guarantees in distributed systemns
+# Delivery guarantees in distributed systems
 
 The purpose of this repository is to raise awareness to the fallacies of distributed computing. It provides explantions and strategies to handle with these problems.
 
