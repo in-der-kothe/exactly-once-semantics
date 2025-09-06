@@ -10,6 +10,7 @@ DELETE http://localhost:8080/payments/
 ### Let bianca transfer exactly one (€) to marc (direct connection to the payment service)
 POST http://localhost:8080/payments/
 Content-Type: application/json
+Payment-Idempotence-Key: foo
 
 {
     "src": "bianca",

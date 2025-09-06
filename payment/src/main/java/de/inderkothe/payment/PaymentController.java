@@ -3,6 +3,8 @@ package de.inderkothe.payment;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class PaymentController {
 
+    private final static String IDEMPOTENCE_KEY_NAME = "Payment-Idempotence-Key";
+
     private final PaymentService paymentService;
 
     @PostMapping("/payments/")
-    public ResponseEntity<PaymentDto> createPayment(@RequestBody PaymentDto paymentDto) {
+    public ResponseEntity<PaymentDto> createPayment(@RequestBody PaymentDto paymentDto, @RequestHeader(value = IDEMPOTENCE_KEY_NAME, required = false ) String idempotenceKey) {
+        log.info("invoked with idempotence key ???{}", idempotenceKey);
         paymentService.processPayment(paymentDto);
         return ResponseEntity.ok().build();
     }
