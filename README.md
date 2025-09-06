@@ -21,8 +21,6 @@ I provided a file with the configured rest endpoints: [payment.http](https://git
 
 You can execute those requests directly by clicking into the file.[^1]
 
-* VS Code: Rest Client from humao (humao.rest-client)
-
 As we will show how the payment service will behave in case of network issues. We will put a proxy server between the Rest-Client and the Payment Service. We will use https://github.com/Shopify/toxiproxy for this purpose.
 
 We will start both service, via a `docker-compose.yml`: 
@@ -96,4 +94,4 @@ Instead of 1000€ we should see, that we transferred much less.
 How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
 [^1]: IntelliJ - this should work out-of-the-box\
-VS Code - you need this plugin: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+VS Code - you need this plugin: [Humao Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
