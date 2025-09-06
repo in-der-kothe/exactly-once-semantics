@@ -1,0 +1,6 @@
+.$architecture.svg.bkp
+.DS_Store
+.idea
+venv
+*.class
+payment/target
