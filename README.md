@@ -3,6 +3,7 @@
 ## Prerequisites
 
 * You need to have Java 21 installed. Consider using https://sdkman.io/ to install it.
+  * sdk install java 21.0.7-tem # as an example
 * You should be able to access the internet to retrieve dependencies
 * You should have https://www.python.org/ installed. Any version from the 3 series should be enough.
 * You should have https://pypi.org/project/pip/ installed. Check it with: `python3 -m pip`
