@@ -3,8 +3,8 @@
 The purpose of this repository is to raise awareness to the fallacies of distributed computing. It provides explantions and strategies to handle with these problems.
 
 The repository is divided in sevaral branches which represent the different chapters / learnings:
-- The `theory` branches explaining the problems and thought experiments. 
-- The `code` branches provide code for exploring the programmatic strategies.
+- The :book: / `theory` branches explaining the problems and thought experiments. 
+- The :computer: / `code` branches provide code for exploring the programmatic strategies.
 
 Educational trail:
 1. ( :book: ) [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
