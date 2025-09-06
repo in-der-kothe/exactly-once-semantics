@@ -41,17 +41,17 @@ docker compose up
 
 Now you should be able to use the configured rest endpoints form `payment.http` and `toxy.http`.
 
-Let's take this tour:
-
+Let's take this tour (please have the picture above in mind): \
+Use WITHOUT proxy
 1. from payment.http -> use the stats endpoint to assert no money has been transferred
 2. from payment.http -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from payment.http -> use teh stats endpoint to assert the one € has been transfered
-4. from payment.http -> use the toxy proxy version of the POST payments endpoint to assert that it does not work. you need to have a configured toxy proxy
-5. from toxy.http -> use configure proxy to configure a toxy proxy 
-6. from payment.http -> use the toxy proxy version of the POST endpoint to transfer one €
-7. from payment.http -> use the stats endpoint to verify
+3. from payment.http -> use the stats endpoint to assert the one € has been transfered
 
-Now, you see that it works.
+Use WITH proxy / configure proxy
+1. from payment.http -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
+2. from toxy.http -> use configure proxy to configure a toxy proxy 
+3. from payment.http -> use the toxy proxy version of the POST endpoint to transfer one €
+4. from payment.http -> use the stats endpoint to verify
 
 Now we check that it works for one thousand payments.
 
@@ -62,17 +62,18 @@ _setup the python script_
 ```
 python3 -m venv venv
 source ./venv/bin/activate
+pip install -r requirements.tx
 ```
 
 Now check this thousand transactions
 
-1. from payment.http -> use the reset endpoint to clear all transactions
+1. from payment.http -> use the delete endpoint to clear all transactions
 2. run the python script: `python3 mass_test.py`
 3. from payment.http -> use status endpoint to assert 1000 € has been transferred.
 
 Looks good.
 
-But what will happen when the network connection is unstable.
+But what will happen when the network connection is unstable?
 
 
 
