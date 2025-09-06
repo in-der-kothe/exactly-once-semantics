@@ -10,7 +10,6 @@ Educational trail:
 1. [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
 2. [Exactly one delivery](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/exactly-once-delivery)
 3. Coding
-    - foo
-    - bar
-    - ...
+    - [Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
+    - [Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/payment-system-with-retry)
 4. [The eight fallacies](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/fallacies)
