@@ -19,7 +19,7 @@ public class PaymentController {
 
     @PostMapping("/payments/")
     public ResponseEntity<PaymentDto> createPayment(@RequestBody PaymentDto paymentDto, @RequestHeader(value = IDEMPOTENCE_KEY_NAME, required = false ) String idempotenceKey) {
-        log.info("invoked with idempotence key ???{}", idempotenceKey);
+        log.info("invoked with idempotence key {}", idempotenceKey);
         paymentService.processPayment(paymentDto);
         return ResponseEntity.ok().build();
     }
