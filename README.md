@@ -8,3 +8,13 @@ To test strategies and the problems behind them you find different approaches in
 
 [^1]: https://blog.bulloak.io/post/20200917-the-impossibility-of-exactly-once/
 [^2]: https://en.wikipedia.org/wiki/Two_Generals%27_Problem
+
+# Common knowledge
+
+Common knowledge[^3] means, that every participant of the system knows everything.
+
+The problem in distributed system is, to be sure about the information. With more than one participant there is more than one truth / observation.
+
+**Lost of the last signal:** every attempt to reach a definite agreement fails, because the last message could be got lost.
+
+[^3]: https://en.wikipedia.org/wiki/Common_knowledge
