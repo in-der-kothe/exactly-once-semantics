@@ -12,12 +12,16 @@ def csv_to_list_of_dicts(filename):
 outgoing_payments = csv_to_list_of_dicts("./payments.csv")
 
 for outgoing_payment in outgoing_payments:
-    payload = {
-        "src"   : outgoing_payment['src'],
-        "dest"  : outgoing_payment['dest'],
-        "amount": outgoing_payment['amount']
-    }
-    try:
-        requests.post('http://localhost:8888/payments/', json=payload)
-    except Exception as e:
-        print("fail...")
+    success = False
+    while not success:
+        payload = {
+            "src"   : outgoing_payment['src'],
+            "dest"  : outgoing_payment['dest'],
+            "amount": outgoing_payment['amount']
+        }
+        try:
+            response = requests.post('http://localhost:8888/payments/', json=payload)
+            if 199 < response.status_code < 300:
+                success = True
+        except Exception as e:
+            print("fail...")

@@ -95,5 +95,20 @@ Instead of 1000€ we should see, that we transferred much less.
 
 How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
+# Does retrying solve the problem?
+
+the script `mass_test.py` has now been changed to retry until it get an proper http status.
+
+Run it again and check with the stats endpoint from `payment.http`.
+
+You will see that, now we have transferred to much money.
+
+Why does this happen?
+
+What has this to do with the two general problem?
+
+How can you make sure, that exactly 1000 transactions will be executed?
+
+
 
 
