@@ -91,7 +91,7 @@ To do so, use the following endpoints from [toxy.http](https://github.com/in-der
 
 Instead of 1000€ we should see, that we transferred much less.
 
-How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
+How can we make sure, that we exactly will transfer 1000€ (in 1000 Transactions)?
 
 [^1]: IntelliJ - this should work out-of-the-box\
 VS Code - you need this plugin: [Humao Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
