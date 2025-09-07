@@ -1,4 +1,4 @@
-# Exactly one delivery
+# Exactly once delivery
 
 > Exactly-once delivery guarantee is the guarantee that a message can be delivered to a recipient once, and only once. While having a message be delivered only once by a recipient, is the norm, it is impossible to guarantee it.[^1]
 
