@@ -93,5 +93,14 @@ Instead of 1000€ we should see, that we transferred much less.
 
 How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
+TODO: add here with what branch to proceed. should be the retry branch. but it we would call him that way, it will reveal what happens.... decide that on your own. I could think that a name would be: do-not-pay-to-less
+
+Then the next one, avoid-paying-twice (for the brach where the script add idempotence keys)
+The the next one, paying-exactly-one 
+
+I must say, that i like the name (while i writing them). they does not reveal the solution, but the intention.
+and the last one mimics the complete workshop name.
+
+
 [^1]: IntelliJ - this should work out-of-the-box\
 VS Code - you need this plugin: [Humao Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
