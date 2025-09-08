@@ -109,6 +109,9 @@ What has this to do with the two general problem?
 
 How can you make sure, that exactly 1000 transactions will be executed?
 
-
+```bash
+git stash
+git switch code/paying-exactly-once
+```
 
 
