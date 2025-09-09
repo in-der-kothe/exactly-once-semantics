@@ -46,6 +46,15 @@ sequenceDiagram
 
 Use pen & paper or whatever you like to find a proper way to ensure the communication.
 
+# Next step - Exactly once delivery
+
+switch / checkout to the next step in the education trail: :book: - [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
+
+```bash
+git stash
+git checkout theory/exactly-once-delivery
+```
+
 [^1]: the examples in this readme are working Mermaid charts: \
 Mermaid charts: https://mermaid.live/edit \
 VSCode Plugin: https://marketplace.visualstudio.com/items?itemName=MermaidChart.vscode-mermaid-chart
