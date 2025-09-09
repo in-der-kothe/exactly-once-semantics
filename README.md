@@ -48,7 +48,7 @@ Use pen & paper or whatever you like to find a proper way to ensure the communic
 
 # Next step - Exactly once delivery
 
-switch / checkout to the next step in the education trail: :book: - [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)
+switch / checkout to the next step in the education trail: :book: - [Exactly one delivery](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/exactly-once-delivery)
 
 ```bash
 git stash
