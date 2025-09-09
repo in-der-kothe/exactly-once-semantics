@@ -30,11 +30,7 @@ We will start both service, via a `docker-compose.yml`:
 So in each case the client invokes our Payment Service via localhost:8888, the request will effecticly go through toxy proxy. Requests via localhost:8080 go straight to the payment service.
 
 ```bash
-cd payment
-./mvnw clean install
-cd ..
-docker compose build
-docker compose up
+./build-and-run.sh
 ```
 
 Now you should be able to use the configured rest endpoints form `payment.http` and `toxy.http`.
@@ -92,6 +88,12 @@ To do so, use the following endpoints from [toxy.http](https://github.com/in-der
 Instead of 1000€ we should see, that we transferred much less.
 
 How can we make sure, that we exactly will transfer 1000€ (in 1000 Transactions)?
+
+* Now, go on...
+```bash
+git stash
+git switch code/never-pay-too-little
+```
 
 [^1]: IntelliJ - this should work out-of-the-box\
 VS Code - you need this plugin: [Humao Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
