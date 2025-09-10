@@ -11,13 +11,13 @@
 
 ## Our example - A payment service
 
-In this example we will see an pretty easy payment service. I will use an in memory database to store each processed transaction.
-To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.
+In this example we will see an pretty easy payment service. I will use an in memory database to store each processed transaction.\
+To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.\
 Each entry in the database will be one transaction.
 
 The API is pretty simple.
 
-I provided a file with the configured rest endpoints: [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http)
+We provided a file with the configured rest endpoints: [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http)
 
 You can execute those requests directly by clicking into the file.[^1]
 
@@ -37,15 +37,15 @@ Now you should be able to use the configured rest endpoints form `payment.http` 
 
 Let's take this tour (please have the picture above in mind): \
 Use WITHOUT proxy
-1. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the stats endpoint to assert no money has been transferred
-2. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the stats endpoint to assert the one € has been transfered
+1. from `payment.http' -> use the stats endpoint to assert no money has been transferred
+2. from `payment.http' -> use the _direct_ connected POST payments endpoint to transfered one €.
+3. from `payment.http' -> use the stats endpoint to assert the one € has been transfered
 
 Use WITH proxy / configure proxy
-1. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
-2. from [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http) -> use configure proxy to configure a toxy proxy 
-3. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the stats endpoint to verify that the payment has been processed
+1. from `payment.http' -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
+2. from `toxy.http' -> use configure proxy to configure a toxy proxy 
+3. from `payment.http' -> use the toxy proxy version of the POST endpoint to transfer one €
+4. from `payment.http' -> use the stats endpoint to verify that the payment has been processed
 
 Now we check that it works for one thousand payments.
 
