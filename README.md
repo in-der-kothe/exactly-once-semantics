@@ -22,8 +22,9 @@ In the previous chapter you saw a pretty easy payment service with its different
   - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
 
 ## System setup
-Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour\
-Choose the appropriate command for you
+Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour.\
+
+Choose the appropriate command for you:
 ```bash
 ./build-and-run-podman.sh
 ./build-and-run-docker-desktop.sh
