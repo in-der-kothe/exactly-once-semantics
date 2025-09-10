@@ -97,6 +97,8 @@ Instead of 1000€ you should see, that there was transferred much less then exp
 How can we make sure, that we exactly will transfer 1000€ (in 1000 Transactions)?
 
 # Next step - Never pay to little
+Go to branch :computer: [Never pay too little](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/never-pay-too-little)
+
 ```bash
 git checkout code/never-pay-too-little
 ```
