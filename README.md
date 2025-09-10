@@ -39,7 +39,7 @@ The previous chapter showed, that with a broken connection
 there is no chance to gain 1000€ within 1000 transactions
 
 ## Just do it again, and again, and again, ...
-The script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/mass_test.py) has now been changed to **retry until it get a proper http status**.
+The script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/mass_test.py) has now been changed to **retry until it gets a proper http status**.
 
 ### Try again
 Run the script with `python3 mass_test.py` and check with `STATS-Endpoint` how much money you earned.
