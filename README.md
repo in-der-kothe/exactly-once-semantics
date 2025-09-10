@@ -33,8 +33,8 @@ Choose the appropriate command for you:
 # Does retrying solve the problem?
 The previous chapter showed, that with a broken connection
 
- - before the request reaches the payment service
- - after the request returns to the client
+ - before the request reaches the payment service - `toxy.http`- `set upstream-reset-peer toxic`
+ - after the request returns to the client - `toxy.http`- `set downstream-reset-peer toxic`
 
 there is no chance to gain 1000€ within 1000 transactions
 
