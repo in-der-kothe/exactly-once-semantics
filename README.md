@@ -37,15 +37,15 @@ Now you should be able to use the configured rest endpoints form `payment.http` 
 
 Let's take this tour (please have the picture above in mind): \
 Use WITHOUT proxy
-1. from `payment.http' -> use the stats endpoint to assert no money has been transferred
-2. from `payment.http' -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from `payment.http' -> use the stats endpoint to assert the one € has been transfered
+1. from `payment.http` -> use the stats endpoint to assert no money has been transferred
+2. from `payment.http` -> use the _direct_ connected POST payments endpoint to transfered one €.
+3. from `payment.http` -> use the stats endpoint to assert the one € has been transfered
 
 Use WITH proxy / configure proxy
-1. from `payment.http' -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
-2. from `toxy.http' -> use configure proxy to configure a toxy proxy 
-3. from `payment.http' -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from `payment.http' -> use the stats endpoint to verify that the payment has been processed
+1. from `payment.http` -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
+2. from `toxy.http` -> use configure proxy to configure a toxy proxy 
+3. from `payment.http` -> use the toxy proxy version of the POST endpoint to transfer one €
+4. from `payment.http` -> use the stats endpoint to verify that the payment has been processed
 
 Now we check that it works for one thousand payments.
 
