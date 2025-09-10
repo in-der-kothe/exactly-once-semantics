@@ -50,3 +50,10 @@ You should see that now, there has been transferred too much money.
 - Why does this happen?
 - What could this has to do with the methaphor of :book: [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)?
 - How can you make sure that exactly 1000 transactions will be executed?
+
+# Next step - Avoid paying twice
+Go to branch :computer: [Avoid paying twice](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/avoid-paying-twice)
+
+```bash
+git checkout code/avoid-paying-twice
+```
