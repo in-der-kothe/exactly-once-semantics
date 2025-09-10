@@ -1,4 +1,4 @@
-# A pretty naive Payment Service
+# Never pay to little
 
 ## Prerequisites
 
