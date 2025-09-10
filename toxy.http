@@ -1,5 +1,4 @@
 ### Get Toxy Proxy Configuration
-
 GET http://localhost:8474/proxies
 
 ### Configure Proxy
