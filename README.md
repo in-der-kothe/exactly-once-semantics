@@ -85,11 +85,9 @@ Use the following endpoints from `toxy.http` to reach the issues / problems in t
   - `set upstream-reset-peer toxic`
   - `set downstream-reset-peer toxic`
 
-Delete all transactions via `payment.http`
-  - `Delete all transactions`
+Delete all transactions via `payment.http` - `Delete all transactions`
 
-Run the script again
-  - `python3 mass_test.py`
+Run the python script again - `python3 mass_test.py`
   
 Check now again with `payment.http` - `STATS-Endpoint`how much money was really transferred\
 Instead of 1000€ you should see, that there was transferred much less then expected\
