@@ -6,7 +6,7 @@ GET http://localhost:8080/stats
 ### Delete all transactions in the system
 DELETE http://localhost:8080/payments/
 
-### DIRECT-Payments-Enpoint
+### DIRECT-Payments-Endpoint
 ### Let bianca transfer exactly one (€) to marc (direct connection to the payment service)
 POST http://localhost:8080/payments/
 Content-Type: application/json
@@ -17,7 +17,7 @@ Content-Type: application/json
     "amount": 1
 }
 
-### TOXYPROXY-Payments-Enpoint
+### TOXYPROXY-Payments-Endpoint
 ### Let bianca transfer exactly one (€) to marc (through toxy proxy)
 POST http://localhost:8888/payments/
 Content-Type: application/json
