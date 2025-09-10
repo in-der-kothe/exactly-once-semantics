@@ -44,7 +44,7 @@ The script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exact
 ### Try again
 Run the script with `python3 mass_test.py` and check with `STATS-Endpoint` how much money you earned.
 
-You should see that now there was too much money transferred.
+You should see that now, there has been transferred too much money.
 
 ### Investigate by yourself
 - Why does this happen?
