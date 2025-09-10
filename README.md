@@ -22,7 +22,7 @@ In the previous chapter you saw a pretty easy payment service with its different
   - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
 
 ## System setup
-Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour.\
+Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour.
 
 Choose the appropriate command for you:
 ```bash
@@ -30,11 +30,18 @@ Choose the appropriate command for you:
 ./build-and-run-docker-desktop.sh
 ```
 
+Setup for python script
+```
+python3 -m venv venv
+source ./venv/bin/activate
+pip install -r requirements.txt
+```
+
 # Does retrying solve the problem?
 The previous chapter showed, that with a broken connection
 
- - before the request reaches the payment service - `toxy.http`- `set upstream-reset-peer toxic`
- - after the request returns to the client - `toxy.http`- `set downstream-reset-peer toxic`
+ - before the request reaches the payment service
+ - after the request returns to the client
 
 there is no chance to gain 1000€ within 1000 transactions
 
