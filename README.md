@@ -2,113 +2,51 @@
 
 ## Prerequisites
 
-* You need to have Java 21 installed. Consider using https://sdkman.io/ to install it.
-  * `sdk install java 21.0.7-tem` # as an example
-* You should be able to access the internet to retrieve dependencies
-* You should have https://www.python.org/ installed. Any version from the 3 series should be enough.
-* You should have https://pypi.org/project/pip/ installed. Check it with: `python3 -m pip`
-* You should have docker and docker-compose installed
+See :computer: - [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
 
-## Our example - A payment service
+## Our example - A payment service - Recap
 
-In this example we will see an pretty easy payment service. I will use an in memory database to store each processed transaction.
-To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.
-Each entry in the database will be one transaction.
+In the previous chapter you saw a pretty easy payment service and played around with different transactions and also already a bit with connection troubles during these transactions.
 
-The API is pretty simple.
-
-I provided a file with the configured rest endpoints: `payment.http`
-
-You can execute those requests directly by clicking into the file. In Intellij this should work without any special plugin and in case of VS Code you need this plugin
-
-* VS Code: Rest Client from humao (humao.rest-client)
-
-As we will show how the payment service will behave in case of network issues. We will put a proxy server between the Rest-Client and the Payment Service. We will use https://github.com/Shopify/toxiproxy for this purpose.
-
-We will start both service, via a `docker-compose.yml`: 
-
+### System landscape
 ![image](architecture.svg)
 
-So in each case the client invokes our Payment Service via localhost:8888, the request will effecticly go through toxy proxy. Requests via localhost:8080 go straight to the payment service.
+### REST-Services and known commands / REST-calls
+- `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http)
+  - use `STATS-Endpoint` to assure no money has been transferred
+  - use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
+  - use `Delete all transactions` to delete all the money 💸
+- `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxy.http)
+  - use 'Configure Proxy' to configure the toxy proxy
+  - `set upstream-reset-peer toxic` - a broken connection before the request reaches the payment services, with a likelyhood of 30%
+  - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
 
+## System setup
+Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour\
+Choose the appropriate command for you
 ```bash
-cd payment
-./mvnw clean install
-cd ..
-docker compose build
-docker compose up
+./build-and-run-podman.sh
+./build-and-run-docker-desktop.sh
 ```
 
-Now you should be able to use the configured rest endpoints form `payment.http` and `toxy.http`.
-
-Let's take this tour (please have the picture above in mind): \
-Use WITHOUT proxy
-1. from payment.http -> use the stats endpoint to assert no money has been transferred
-2. from payment.http -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from payment.http -> use the stats endpoint to assert the one € has been transfered
-
-Use WITH proxy / configure proxy
-1. from payment.http -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
-2. from toxy.http -> use configure proxy to configure a toxy proxy 
-3. from payment.http -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from payment.http -> use the stats endpoint to verify that the payment has been processed
-
-Now we check that it works for one thousand payments.
-
-I prepared a list of to be processed transactions in `payments.csv`.
-I prepared a python script that reads this list and issues a post call agains the payment endpoint.
-
-_setup the python script_
-```
-python3 -m venv venv
-source ./venv/bin/activate
-pip install -r requirements.tx
-```
-
-Now check this thousand transactions
-
-1. from payment.http -> use the delete endpoint to clear all transactions
-2. run the python script: `python3 mass_test.py`
-3. from payment.http -> use status endpoint to assert 1000 € has been transferred.
-
-Looks good.
-
-But what will happen when the network connection is unstable?
-
-Now, we configure toxi proxy to have:
-
-* a broken connection before the request reaches the payment services, with a likelyhood of 30%
-* a broken connection after the request should return to client, again with a likelyhood of 30%
-
-To do so, use the following endpoints from `toxy.http`
-
-* set upstream-reset-peer toxic
-* set downstream-reset-peer toxic
-
-
-
-* delete all transactions with the delete Endpoint in `payment.http`.
-* Run the script again: `python3 mass_test.py`
-* check again with the stats endpoint from `payment.http` how much money was transferred
-
-Instead of 1000€ we should see, that we transferred much less.
-
-How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
 
 # Does retrying solve the problem?
+The previous chapter showed, that with a broken connection
 
-the script `mass_test.py` has now been changed to retry until it get an proper http status.
+ - before the request reaches the payment service
+ - after the request returns to the client
 
-Run it again and check with the stats endpoint from `payment.http`.
+there is no chance to gain 1000€ within 1000 transactions
 
-You will see that, now we have transferred to much money.
+## Just do it again, and again, and again, ...
+The script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/mass_test.py) has now been changed to **retry until it get an proper http status**.
 
-Why does this happen?
+### Try again
+Run the script with `python3 mass_test.py` and check with `STATS-Endpoint` how much money you earned.
 
-What has this to do with the two general problem?
+You should see that now there has been to much money transferred.
 
-How can you make sure, that exactly 1000 transactions will be executed?
-
-
-
-
+### Investigate by yourself
+- Why does this happen?
+- What could this has to do with the methaphor of :book: [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)?
+- How can you make sure that exactly 1000 transactions will be executed?
