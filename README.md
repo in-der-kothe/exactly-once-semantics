@@ -1,4 +1,4 @@
-# A pretty naive Payment Service
+# A pretty naive payment service
 
 ## Prerequisites
 
@@ -9,90 +9,96 @@
 * You should have https://pypi.org/project/pip/ installed. Check it with: `python3 -m pip`
 * You should have docker and docker-compose installed
 
-## Our example - A payment service
+## Our example - A naive payment service
 
-In this example we will see an pretty easy payment service. I will use an in memory database to store each processed transaction.\
+In this example we will see an easy payment service. I will use an in memory database to store each processed transaction.\
 To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.\
-Each entry in the database will be one transaction.
+Each entry in the database will be one transaction.\
+We will show how the payment service will behave in case of network issues.
 
-The API is pretty simple.
+We provided a file with the configured rest endpoints[^1]: [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http)
 
-We provided a file with the configured rest endpoints: [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http)
+To mock network issues we will put a proxy server between the Rest-Client and the Payment Service.\
+For that we use [ToxyProxy](https://github.com/Shopify/toxiproxy).
 
-You can execute those requests directly by clicking into the file.[^1]
-
-As we will show how the payment service will behave in case of network issues. We will put a proxy server between the Rest-Client and the Payment Service. We will use https://github.com/Shopify/toxiproxy for this purpose.
-
-We will start both service, via a `docker-compose.yml`: 
-
+Both services start via `docker-compose.yml` / [docker-compose.yml](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/docker-compose.yml).\
+The system landscape will look like this:\
 ![image](architecture.svg)
 
-So in each case the client invokes our Payment Service via localhost:8888, the request will effecticly go through toxy proxy. Requests via localhost:8080 go straight to the payment service.
+So in each case the client invokes our Payment Service:
+ - with `localhost:8888` the request will effecticly go through toxy proxy to the payment service.
+ - with `localhost:8080` the request go straight to the payment service.
 
+## Setup the system
+Choose the appropriate command for you
 ```bash
-./build-and-run.sh
+./build-and-run-podman.sh
+./build-and-run-docker-desktop.sh
 ```
 
-Now you should be able to use the configured rest endpoints form `payment.http` and `toxy.http`.
+Now you should be able to use the configured rest endpoints from `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) and `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http).
 
-Let's take this tour (please have the picture above in mind): \
-Use WITHOUT proxy
-1. from `payment.http` -> use the stats endpoint to assert no money has been transferred
-2. from `payment.http` -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from `payment.http` -> use the stats endpoint to assert the one € has been transfered
+Let's take this tour (please have the picture above in mind):\
 
+### Test the connection to the service
+Use WITHOUT proxy - play a bit around
+1. from `payment.http` -> use `STATS-Endpoint` to assure no money has been transferred
+2. from `payment.http` -> use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
+3. from `payment.http` -> use `STATS-Endpoint` again to assure the ONE € has been transfered
+4. from `payment.http` -> use `Delete all transactions` to delete all the money :money_with_wings:
+
+### Test the connection with issues
 Use WITH proxy / configure proxy
-1. from `payment.http` -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
-2. from `toxy.http` -> use configure proxy to configure a toxy proxy 
-3. from `payment.http` -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from `payment.http` -> use the stats endpoint to verify that the payment has been processed
+1. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to assure that it does NOT work - you need to have a configured toxy proxy
+2. from `toxy.http` -> use `Configure Proxy` to configure the toxy proxy 
+3. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to transfer ONE €
+4. from `payment.http` -> use `STATS-Endpoint` to verify that the payment has been processed
 
-Now we check that it works for one thousand payments.
+You can also here play around, to gain some more money or delete all your savings. Just make sure, everthing works fine.
 
-I prepared a list of to be processed transactions in `payments.csv`.
-I prepared a python script that reads this list and issues a post call agains the payment endpoint.
+## A distributed system under stress
+Now we check if the service works for one thousand payments.
 
-_setup the python script_
+In `payments.csv` / [payments.csv](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payments.csv) you find a prepared list of 1000 transactions.\
+There is also a prepared python script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/mass_test.py) that uses the list as input and issues a post call agains the payment endpoint.
+
+### Setup for the python script
 ```
 python3 -m venv venv
 source ./venv/bin/activate
-pip install -r requirements.tx
+pip install -r requirements.txt
 ```
 
-Now check this thousand transactions
-
-1. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use the delete endpoint to clear all transactions
-2. run the python script: `python3 mass_test.py`
-3. from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) -> use status endpoint to assert 1000 € has been transferred.
-
-Looks good.
+### perform thousand transactions
+1. from `payment.http` -> use `Delete all transactions` to clear all transactions
+2. run the python script -> `python3 mass_test.py`
+3. from `payment.http` -> use 'STATS-Endpoint' to assert the 1000 € has been transferred
 
 But what will happen when the network connection is unstable?
 
-Now, we configure toxi proxy to have:
+### perform thousand transactions with a connection under stress
+Configure toxi proxy to gain:
+  - a broken connection **before** the request reaches the payment services, with a likelyhood of 30%
+  - a broken connection **after** the request should return to client, again with a likelyhood of 30%
 
-* a broken connection **before** the request reaches the payment services, with a likelyhood of 30%
-* a broken connection **after** the request should return to client, again with a likelyhood of 30%
+Use the following endpoints from `toxy.http` to reach the issues / problems in the conections:
+  - `set upstream-reset-peer toxic`
+  - `set downstream-reset-peer toxic`
 
-To do so, use the following endpoints from [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http)
+Delete all transactions via `payment.http`
+  - `Delete all transactions`
 
-* set upstream-reset-peer toxic
-* set downstream-reset-peer toxic
-
-
-
-* delete all transactions with the delete Endpoint in `payment.http`.
-* Run the script again: `python3 mass_test.py`
-* check again with the stats endpoint from `payment.http` how much money was transferred
-
-Instead of 1000€ we should see, that we transferred much less.
+Run the script again
+  - `python3 mass_test.py`
+  
+Check now again with `payment.http` - `STATS-Endpoint`how much money was really transferred\
+Instead of 1000€ you should see, that there was transferred much less then expected\
 
 How can we make sure, that we exactly will transfer 1000€ (in 1000 Transactions)?
 
-* Now, go on...
+# Next step - Never pay to little
 ```bash
-git stash
-git switch code/never-pay-too-little
+git checkout code/never-pay-too-little
 ```
 
 [^1]: IntelliJ - this should work out-of-the-box\
