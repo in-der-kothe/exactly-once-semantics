@@ -19,7 +19,9 @@ The communication only works with messengers, which must be send through the hos
 
 ## Examples
 
-Try the following diagrams by yourself, Play around[^1]
+Keep in mind that the two-generals-methaphor is used to give a better understanding of **the underlying problem - how to establish 'exactly once delivery'?**
+
+How can the participants be sure about a common knowledge[^1] (how / when to attak the enemy)) in distributed systems? With more than one participant there are probably more than one truth / observation.
 
 ## How can the generals be sure, that the messeges went through?
 
@@ -44,8 +46,17 @@ sequenceDiagram
 ```
 ## Try for yourself to find an answer
 
-Use pen & paper or whatever you like to find a proper way to ensure the communication.
+Use pen & paper or whatever you like (eg. Mermaid charts[^2]) to find a proper way to ensure the communication / common knowledge.
 
-[^1]: the examples in this readme are working Mermaid charts: \
+# Next step - Naive payment system
+
+switch / checkout to the next step in the education trail: :computer: - [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
+
+```bash
+git checkout code/naive-payment-system
+```
+
+[^1]: https://en.wikipedia.org/wiki/Common_knowledge
+[^2]: the examples in this readme are working Mermaid charts: \
 Mermaid charts: https://mermaid.live/edit \
 VSCode Plugin: https://marketplace.visualstudio.com/items?itemName=MermaidChart.vscode-mermaid-chart
