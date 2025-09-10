@@ -79,7 +79,7 @@ pip install -r requirements.txt
 But what will happen when the network connection is unstable?
 
 ### perform thousand transactions with a connection under stress
-Configure toxi proxy (`toxy.http`-> `Configure Proxy`) to gain:
+Configure toxi proxy (`toxy.http` -> `Configure Proxy`) to gain:
   - a broken connection **before** the request reaches the payment services, with a likelyhood of 30%
   - a broken connection **after** the request should return to client, again with a likelyhood of 30%
 
