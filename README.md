@@ -21,8 +21,10 @@ We provided a file with the configured rest endpoints[^1]: [payment.http](https:
 To mock network issues we will put a proxy server between the Rest-Client and the Payment Service.\
 For that we use [ToxyProxy](https://github.com/Shopify/toxiproxy).
 
-Both services start via `docker-compose.yml` / [docker-compose.yml](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/docker-compose.yml).\
-The system landscape will look like this:\
+Both services start via `docker-compose.yml` / [docker-compose.yml](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/docker-compose.yml).
+
+The system landscape will look like this:
+
 ![image](architecture.svg)
 
 So in each case the client invokes our Payment Service:
@@ -30,7 +32,7 @@ So in each case the client invokes our Payment Service:
  - with `localhost:8080` the request go straight to the payment service.
 
 ## Setup the system
-Choose the appropriate command for you
+Choose the appropriate command for you:
 ```bash
 ./build-and-run-podman.sh
 ./build-and-run-docker-desktop.sh
@@ -38,7 +40,7 @@ Choose the appropriate command for you
 
 Now you should be able to use the configured rest endpoints from `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) and `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http).
 
-Let's take this tour (please have the picture above in mind):\
+Let's take this tour (please have the system landscape from the picture above in mind):
 
 ### Test the connection to the service
 Use WITHOUT proxy - play a bit around
