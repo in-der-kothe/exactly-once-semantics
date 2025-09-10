@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-See :computer: - [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
+See :computer: [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
 
 ## Our example - A payment service - Recap
 
-In the previous chapter you saw a pretty easy payment service and played around with different transactions and also already a bit with connection troubles during these transactions.
+In the previous chapter you saw a pretty easy payment service with its different transactions. You as well played around with these connections and tested minor troubles.
 
 ### System landscape
 ![image](architecture.svg)
