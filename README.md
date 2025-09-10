@@ -6,7 +6,7 @@ See :computer: [A Naive payment system](https://github.com/in-der-kothe/exactly-
 
 ## Our example - A payment service - Recap
 
-In the previous chapter you saw a pretty easy payment service with its different transactions. You as well played around with these connections and tested / caused minor troubles and the outcomes.
+In the previous chapter you saw a pretty easy payment service with its different transactions. You as well played around with these connections and caused minor troubles and investigated the outcomes.
 
 ### System landscape
 ![image](architecture.svg)
