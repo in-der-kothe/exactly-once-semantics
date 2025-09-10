@@ -43,15 +43,15 @@ Let's take this tour (please have the picture above in mind):\
 ### Test the connection to the service
 Use WITHOUT proxy - play a bit around
 1. from `payment.http` -> use `STATS-Endpoint` to assure no money has been transferred
-2. from `payment.http` -> use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
-3. from `payment.http` -> use `STATS-Endpoint` again to assure the ONE € has been transfered
+2. from `payment.http` -> use `DIRECT-Payments-Endpoint` ONE time to transfer 1€.
+3. from `payment.http` -> use `STATS-Endpoint` again to assure the 1€ has been transfered
 4. from `payment.http` -> use `Delete all transactions` to delete all the money :money_with_wings:
 
 ### Test the connection with issues
 Use WITH proxy / configure proxy
 1. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to assure that it does NOT work - you need to have a configured toxy proxy
 2. from `toxy.http` -> use `Configure Proxy` to configure the toxy proxy 
-3. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to transfer ONE €
+3. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to transfer 1€
 4. from `payment.http` -> use `STATS-Endpoint` to verify that the payment has been processed
 
 You can also here play around, to gain some more money or delete all your savings. Just make sure, everthing works fine.
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 ### perform thousand transactions
 1. from `payment.http` -> use `Delete all transactions` to clear all transactions
 2. run the python script -> `python3 mass_test.py`
-3. from `payment.http` -> use 'STATS-Endpoint' to assert the 1000 € has been transferred
+3. from `payment.http` -> use 'STATS-Endpoint' to assert the 1000€ has been transferred
 
 But what will happen when the network connection is unstable?
 
