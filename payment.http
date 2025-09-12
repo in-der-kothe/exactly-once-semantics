@@ -1,6 +1,10 @@
-# How much money has been transfered?
+### STATS-Endpoint
+
+GET http://localhost:8080/stats
+
 
 ### STATS-Endpoint
+
 GET http://localhost:8080/stats
 
 ### Delete all transactions in the system

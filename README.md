@@ -1,45 +1,29 @@
-# A pretty naive Payment Service
+# Avoid paying twice
 
-## Prerequisites
+So we realy want to achive pay to less, but also not to much. So let's see how we can achive this.
 
-* You need to have Java 21 installed. Consider using https://sdkman.io/ to install it.
-  * `sdk install java 21.0.7-tem` # as an example
-* You should be able to access the internet to retrieve dependencies
-* You should have https://www.python.org/ installed. Any version from the 3 series should be enough.
-* You should have https://pypi.org/project/pip/ installed. Check it with: `python3 -m pip`
-* You should have docker and docker-compose installed
+This branch will show you **one way**  how you could achive this: idempotence keys...
 
-## Our example - A payment service
-
-In this example we will see an pretty easy payment service. I will use an in memory database to store each processed transaction.
-To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.
-Each entry in the database will be one transaction.
-
-The API is pretty simple.
-
-I provided a file with the configured rest endpoints: `payment.http`
-
-You can execute those requests directly by clicking into the file. In Intellij this should work without any special plugin and in case of VS Code you need this plugin
-
-* VS Code: Rest Client from humao (humao.rest-client)
-
-As we will show how the payment service will behave in case of network issues. We will put a proxy server between the Rest-Client and the Payment Service. We will use https://github.com/Shopify/toxiproxy for this purpose.
-
-We will start both service, via a `docker-compose.yml`: 
-
-![image](architecture.svg)
-
-So in each case the client invokes our Payment Service via localhost:8888, the request will effecticly go through toxy proxy. Requests via localhost:8080 go straight to the payment service.
-
+Choose the appropriate command for you:
 ```bash
-cd payment
-./mvnw clean install
-cd ..
-docker compose build
-docker compose up
+./build-and-run-podman.sh
+./build-and-run-docker.sh
 ```
 
 Now you should be able to use the configured rest endpoints form `payment.http` and `toxy.http`.
+
+Setup the already familiar broken connection ;-)
+
+run the provided python script
+
+you should see in the docker output, that the controller now get's an idempotence key.
+
+check the controller implementation
+
+we prepared that python script, that it will send unique idempotence keys for distince transactions. but for a retry for the same transaction it will send the very same idemtpotence key...
+
+The implementation of the payment service will only log out the idemtpotence key
+
 
 Let's take this tour (please have the picture above in mind): \
 Use WITHOUT proxy
