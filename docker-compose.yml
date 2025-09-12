@@ -1,7 +1,6 @@
 services:
   payment:
-    build:
-      context: payment
+    image: payment:latest
     ports:
       - 8080:8080
   toxy:
