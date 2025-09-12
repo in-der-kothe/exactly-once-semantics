@@ -11,6 +11,7 @@ def csv_to_list_of_dicts(filename):
 
 outgoing_payments = csv_to_list_of_dicts("./payments.csv")
 
+i = 0
 for outgoing_payment in outgoing_payments:
     success = False
     while not success:
@@ -20,8 +21,11 @@ for outgoing_payment in outgoing_payments:
             "amount": outgoing_payment['amount']
         }
         try:
+            i = i + 1
             response = requests.post('http://localhost:8888/payments/', json=payload)
             if 199 < response.status_code < 300:
                 success = True
         except Exception as e:
             print("fail...")
+
+print ("Total attempts: ", i)

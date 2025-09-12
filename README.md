@@ -27,7 +27,7 @@ Make sure, all services are shutdown and the system is 'clear' to start again wi
 Choose the appropriate command for you:
 ```bash
 ./build-and-run-podman.sh
-./build-and-run-docker-desktop.sh
+./build-and-run-docker.sh
 ```
 
 Setup for python script
