@@ -32,10 +32,10 @@ So in each case the client invokes our Payment Service:
  - with `localhost:8080` the request go straight to the payment service.
 
 ## Setup the system
-Choose the appropriate command for you:
+Choose the appropriate command for you (if you have podman or docker installed):
 ```bash
 ./build-and-run-podman.sh
-./build-and-run-docker-desktop.sh
+./build-and-run-docker.sh
 ```
 
 Now you should be able to use the configured rest endpoints from `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) and `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http).
