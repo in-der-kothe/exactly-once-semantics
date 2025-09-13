@@ -13,4 +13,9 @@ James Gosling, another sun fellow and the inventor of Java, added the eighth fal
 7. Transport cost is zero
 8. The network is homogeneous
 
+## Resulting from this is - among others - the exactly-once delivery guarantee fallacy
+
+Exactly-once delivery guarantee is the guarantee that a message can be delivered to a recipient once, and only once. While having a message be delivered only once by a recipient, is the norm, it is impossible to guarantee it.[^2]
+
 [^1]: https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing
+[^2]: https://blog.bulloak.io/post/20200917-the-impossibility-of-exactly-once/
