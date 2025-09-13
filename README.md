@@ -27,8 +27,8 @@ Let's run it...
   - use `STATS-Endpoint` to assure no money has been transferred
   - use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
   - use `Delete all transactions` to delete all the money 💸
-- `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxy.http)
-  - use 'Configure Proxy' to configure the toxy proxy
+- `toxi.http` / [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxi.http)
+  - use 'Configure Proxy' to configure the toxi proxy
   - `set upstream-reset-peer toxic` - a broken connection before the request reaches the payment services, with a likelyhood of 30%
   - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
 
