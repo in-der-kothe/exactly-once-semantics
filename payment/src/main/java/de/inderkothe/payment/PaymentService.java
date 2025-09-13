@@ -27,9 +27,7 @@ public class PaymentService {
                 log.error("duplicate detected...");
                 throw new AlreadyProcessRequestException();
             }
-
         }
-
     }
 
     public Double stats() {
