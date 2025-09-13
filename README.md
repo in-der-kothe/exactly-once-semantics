@@ -1,6 +1,6 @@
 # Delivery guarantees in distributed systems
 
-The purpose of this repository is to raise awareness to some of ocurring problems in distributed systems. \
+The purpose of this repository is to raise awareness to some ocurring problems in distributed systems. \
 It provides explanations and a strategies to handle them.
 
 The repository is divided in several branches which represent the different chapters / learnings:
