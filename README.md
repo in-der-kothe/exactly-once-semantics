@@ -30,7 +30,7 @@ You will now see that the script used much more attempts to send the money.
 
 Also check how much money has been transferred.
 
-We have more money transferred that we intentionally wanted. This kind of guarantee is being called [at least once](https://docs.confluent.io/kafka/design/delivery-semantics.html). That means we transferr each message at least once, but maybe even two or more times.
+We have more money transferred that we intentionally wanted. This kind of guarantee is being called [at least once (Kafka docu))]([https://docs.confluent.io/kafka/design/delivery-semantics.html](https://docs.confluent.io/kafka/design/delivery-semantics.html#semantic-guarantees)). That means we transferr each message at least once, but maybe even two or more times.
 
 
 ### Ask yourself
