@@ -20,10 +20,9 @@ Check the controller implementation. You will see that it just logs a received i
 
 Now it is up to you, change the code, that you will execute a payment only once for the same idempotence key.
 
-# Next step—paying exactly once
+# Next step — paying exactly once
 Go to branch :computer: [Paying exactly once](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/paying-exactly-once)
 
 ```bash
 git checkout code/paying-exactly-once
 ```
-
