@@ -25,7 +25,7 @@ The System is composed out of two services.
 ![image](architecture.svg)
 
 * The Payment service running on port 8080
-* A Proxy-Server ([ToxiProxy](https://github.com/Shopify/toxiproxy)) so simulate, that could be used to simulate networking problems
+* A Proxy-Server ([ToxiProxy](https://github.com/Shopify/toxiproxy)) to simulate networking problems
 
 The client can decide whether he wants to connect directly to the payment service (on port 8080) or via the Proxy (on port 8888).
 
