@@ -36,10 +36,8 @@ We provided two file to make it easy for you to interact with both of them:
  * `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) 
  * `toxi.http` / [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxi.http).
 
-Now start the system:
-
+## Setup the system
 in case you have docker:
-
 ```bash
 ./build-and-run-docker.sh
 ```
@@ -71,7 +69,7 @@ Use WITH proxy / configure proxy
 
 You should also play around here, to gain some more money or delete all your savings. Just make sure, everything works fine.
 
-## Some more load
+## Some more load / the system under stress
 Now we check if the service works for one thousand payments.
 
 In [payments.csv](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payments.csv) you find a prepared list of 1000 transactions.\
