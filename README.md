@@ -20,56 +20,22 @@ Let's run it...
 
 
 
+* start the system with the proper script (build-and-run...)
 * from [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxi.http) use the _configure_, the _set upstream-reset-peer toxic_ and the _set downstream-reset-peer toxic_ endpoints.
 * from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http) delete transactions and check the stats endpoint
 
 * run the Python script ```python3 ./mass_test.py```
-* 
-### REST-Services and known commands / REST-calls
-- `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http)
-  - use `STATS-Endpoint` to assure no money has been transferred
-  - use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
-  - use `Delete all transactions` to delete all the money 💸
-- `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxy.http)
-  - use 'Configure Proxy' to configure the toxy proxy
-  - `set upstream-reset-peer toxic` - a broken connection before the request reaches the payment services, with a likelyhood of 30%
-  - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
 
-## System setup
-Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour.
+You will now see that the script used much more attempts to send the money.
 
-Choose the appropriate command for you:
-```bash
-./build-and-run-podman.sh
-./build-and-run-docker.sh
-```
+Also check how much money has been transferred.
 
-Setup for python script
-```
-python3 -m venv venv
-source ./venv/bin/activate
-pip install -r requirements.txt
-```
+We have more money transferred that we intentionally wanted. This kind of guarantee is being called [at least once](https://docs.confluent.io/kafka/design/delivery-semantics.html). That means we transferr each message at least once, but maybe even two or more times.
 
-# Does retrying solve the problem?
-The previous chapter showed, that with a broken connection
 
- - before the request reaches the payment service
- - after the request returns to the client
-
-there is no chance to gain 1000€ within 1000 transactions
-
-## Just do it again, and again, and again, ...
-The script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/mass_test.py) has now been changed to **retry until it gets a proper http status**.
-
-### Try again
-Run the script with `python3 mass_test.py` and check with `STATS-Endpoint` how much money you earned.
-
-You should see that now, there has been transferred too much money.
-
-### Investigate by yourself
+### Ask yourself
 - Why does this happen?
-- What could this has to do with the methaphor of :book: [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)?
+- What could this have to do with the metaphor of :book: [The two generals](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/two-generals)?
 - How can you make sure that exactly 1000 transactions will be executed?
 
 # Next step - Avoid paying twice
