@@ -12,7 +12,7 @@ Can we just retry to send the message until it succeeds?
 
 Let's check.
 
-In this branch the `mass_test.py` has been changed to retry until it got a proper HTTP-Response.
+In this branch the `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/mass_test.py) has been changed to retry until it got a proper HTTP-Response.
 
 Let's run it...
 
