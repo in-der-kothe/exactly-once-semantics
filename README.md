@@ -8,11 +8,11 @@
 * You should have [Python](https://www.python.org/) installed. Any version from the 3 series should be enough.
 * You should have [PIP](https://pypi.org/project/pip/) installed. Check it with: `python3 -m pip`
 * You should have docker and docker-compose installed
-* No special IDE is needed, however [IntelliJ IDEA](https://www.jetbrains.com/idea/)/[VS Code](https://code.visualstudio.com/) will be easiest to follow the examples. In case you want to use VScode, consider to instal this extension: [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
+* No special IDE is needed, however [IntelliJ IDEA](https://www.jetbrains.com/idea/) / [VS Code](https://code.visualstudio.com/) will be easiest to follow the examples. In case you want to use VScode, consider to instal this extension: [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ## Our example - A naive payment service
 
-In this example we will work with an easy payment service. I will use an in memory database [(H2)](https://www.h2database.com/html/main.html) to store each processed transaction.
+In this example we will work with an easy payment service. I will use an in memory database ([H2](https://www.h2database.com/html/main.html)) to store each processed transaction.
 
 To keep the system simple, we will consider a transaction as processed when it is stored in the database.
 
@@ -25,7 +25,7 @@ The System is composed out of two services.
 ![image](architecture.svg)
 
 * The Payment service running on port 8080
-* A Proxy-Server [(ToxiProxy)](https://github.com/Shopify/toxiproxy) so simulate, that could be used to simulate networking problems
+* A Proxy-Server ([ToxiProxy](https://github.com/Shopify/toxiproxy)) so simulate, that could be used to simulate networking problems
 
 The client can decide whether he wants to connect directly to the payment service (on port 8080) or via the Proxy (on port 8888).
 
