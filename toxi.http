@@ -1,4 +1,4 @@
-### Get Toxy Proxy Configuration
+### Get Toxi Proxy Configuration
 
 GET http://localhost:8474/proxies
 
@@ -40,7 +40,7 @@ POST http://localhost:8474/proxies/payment/toxics
           }
         }
 
-### reset toxy proxy
+### reset toxi proxy
 
 POST http://localhost:8474/reset
 

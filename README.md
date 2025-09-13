@@ -1,113 +1,60 @@
-# A pretty naive Payment Service
+# Paying exactly once
 
-## Prerequisites
+In case you did not figure out how to cope with multiple messages for the the payment, you will see here one solution.
 
-* You need to have Java 21 installed. Consider using https://sdkman.io/ to install it.
-  * `sdk install java 21.0.7-tem` # as an example
-* You should be able to access the internet to retrieve dependencies
-* You should have https://www.python.org/ installed. Any version from the 3 series should be enough.
-* You should have https://pypi.org/project/pip/ installed. Check it with: `python3 -m pip`
-* You should have docker and docker-compose installed
+The process of identifying duplicated messages/rest-calls is being called deduplication.
 
-## Our example - A payment service
+## First try
 
-In this example we will see an pretty easy payment service. I will use an in memory database to store each processed transaction.
-To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.
-Each entry in the database will be one transaction.
+* start the system
+* configure it as you know it (with the broken connection)
+* run the python script
 
-The API is pretty simple.
+assert that the script used much more than 1000 attemps.
+assert that exactly 1000€ has been transferred.
 
-I provided a file with the configured rest endpoints: `payment.http`
+this is called exactly once semantic: even if the message has been transferred more than once, that side effect (of paying) has been excecuted exactly once.
 
-You can execute those requests directly by clicking into the file. In Intellij this should work without any special plugin and in case of VS Code you need this plugin
+## How does it work
 
-* VS Code: Rest Client from humao (humao.rest-client)
+Inspect the implemetation.
 
-As we will show how the payment service will behave in case of network issues. We will put a proxy server between the Rest-Client and the Payment Service. We will use https://github.com/Shopify/toxiproxy for this purpose.
+### the controller
 
-We will start both service, via a `docker-compose.yml`: 
+wil just forword the idempotence key to the service that processes the pyment
 
-![image](architecture.svg)
+### the service
 
-So in each case the client invokes our Payment Service via localhost:8888, the request will effecticly go through toxy proxy. Requests via localhost:8080 go straight to the payment service.
+the service will try to save the payment with the idempotence key. in case this yields  an certain exception it will throw an duplicate exception.
 
-```bash
-cd payment
-./mvnw clean install
-cd ..
-docker compose build
-docker compose up
-```
+the duplicate exception let the controller send an http already reported http status code. this will be treated by our http client (the python script as a success case)
 
-Now you should be able to use the configured rest endpoints form `payment.http` and `toxy.http`.
+In wiche case will the attempt to save led to that exception:
 
-Let's take this tour (please have the picture above in mind): \
-Use WITHOUT proxy
-1. from payment.http -> use the stats endpoint to assert no money has been transferred
-2. from payment.http -> use the _direct_ connected POST payments endpoint to transfered one €.
-3. from payment.http -> use the stats endpoint to assert the one € has been transfered
+### the entity
 
-Use WITH proxy / configure proxy
-1. from payment.http -> use the toxy proxy version of the POST payments endpoint to assure that it does NOT work. you need to have a configured toxy proxy
-2. from toxy.http -> use configure proxy to configure a toxy proxy 
-3. from payment.http -> use the toxy proxy version of the POST endpoint to transfer one €
-4. from payment.http -> use the stats endpoint to verify that the payment has been processed
-
-Now we check that it works for one thousand payments.
-
-I prepared a list of to be processed transactions in `payments.csv`.
-I prepared a python script that reads this list and issues a post call agains the payment endpoint.
-
-_setup the python script_
-```
-python3 -m venv venv
-source ./venv/bin/activate
-pip install -r requirements.tx
-```
-
-Now check this thousand transactions
-
-1. from payment.http -> use the delete endpoint to clear all transactions
-2. run the python script: `python3 mass_test.py`
-3. from payment.http -> use status endpoint to assert 1000 € has been transferred.
-
-Looks good.
-
-But what will happen when the network connection is unstable?
-
-Now, we configure toxi proxy to have:
-
-* a broken connection before the request reaches the payment services, with a likelyhood of 30%
-* a broken connection after the request should return to client, again with a likelyhood of 30%
-
-To do so, use the following endpoints from `toxy.http`
-
-* set upstream-reset-peer toxic
-* set downstream-reset-peer toxic
+we configured the idempotence-key field in the database as unique. so the database will complain when we attemd to save the very same idempotence key
 
 
 
-* delete all transactions with the delete Endpoint in `payment.http`.
-* Run the script again: `python3 mass_test.py`
-* check again with the stats endpoint from `payment.http` how much money was transferred
+### the learings
 
-Instead of 1000€ we should see, that we transferred much less.
+cooperative: client and service/server
+you have to make sure to retry always with the very same idempotence key
 
-How can we make sure, the we exactly will transfer 1000€ (in 1000 Transactions)?
+you should consider this when your automativ maybe three attemps fails consecutivly
 
-# Does retrying solve the problem?
+tools like kafka and other make most times somethign like this under the hood.
 
-the script `mass_test.py` has now been changed to retry until it get an proper http status.
+exactly once delivery is impossible but exactly once semantic is achivable
 
-Run it again and check with the stats endpoint from `payment.http`.
+do not put effort in sending exactyl once. it it impossible
 
-You will see that, now we have transferred to much money.
+you have to cope with multiple messages.
 
-Why does this happen?
 
-What has this to do with the two general problem?
 
-How can you make sure, that exactly 1000 transactions will be executed?
+
 
 
 
