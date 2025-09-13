@@ -43,7 +43,7 @@ in case you have docker:
 ```
 and when you have podman
 ```bash
-./build-and-run-docker.sh
+./build-and-run-podman.sh
 ```
 
 Now use the above-mentioned REST-Endpoints to interact with the system:
