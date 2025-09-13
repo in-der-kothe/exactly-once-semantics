@@ -15,23 +15,48 @@ Let's check.
 In this branch the `mass_test.py` has been changed to retry until it got a proper HTTP-Response.
 
 Let's run it...
+
+<details>
+  <summary>Recap - System landscape, setup, commands</summary>
+  
 ### System landscape
 ![image](architecture.svg)
 
+### REST-Services and known commands / REST-calls
+- `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http)
+  - use `STATS-Endpoint` to assure no money has been transferred
+  - use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
+  - use `Delete all transactions` to delete all the money 💸
+- `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxy.http)
+  - use 'Configure Proxy' to configure the toxy proxy
+  - `set upstream-reset-peer toxic` - a broken connection before the request reaches the payment services, with a likelyhood of 30%
+  - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
 
+### System setup -  not essential but maybe helpful
+Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour.
 
-* start the system with the proper script (build-and-run...)
-* from [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxi.http) use the _configure_, the _set upstream-reset-peer toxic_ and the _set downstream-reset-peer toxic_ endpoints.
-* from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http) delete transactions and check the stats endpoint
+Setup your system as before:
+```bash
+./build-and-run-docker.sh
+./build-and-run-podman.sh
 
-* run the Python script ```python3 ./mass_test.py```
+python3 -m venv venv
+source ./venv/bin/activate
+pip install -r requirements.txt
+```
+</details>
+
+## Retry the transactions
+Configure your system as before:
+* `toxi.http` -> `set upstream-reset-peer toxic` & `set downstream-reset-peer toxic`
+* `payment.http` -> `Delete all transactions` & `STATS-Endpoint`
+* run the Python script `python3 ./mass_test.py`
 
 You will now see that the script used much more attempts to send the money.
 
 Also check how much money has been transferred.
 
 We have more money transferred that we intentionally wanted. This kind of guarantee is being called [at least once (Kafka doku)](https://docs.confluent.io/kafka/design/delivery-semantics.html]https://docs.confluent.io/kafka/design/delivery-semantics.html#semantic-guarantees). That means we transferr each message at least once, but maybe even two or more times.
-
 
 ### Ask yourself
 - Why does this happen?
