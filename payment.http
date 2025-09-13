@@ -17,7 +17,7 @@ Content-Type: application/json
     "amount": 1
 }
 
-### TOXYPROXY-Payments-Endpoint
+### TOXIPROXY-Payments-Endpoint
 ### Let bianca transfer exactly one (€) to marc (through toxy proxy)
 POST http://localhost:8888/payments/
 Content-Type: application/json

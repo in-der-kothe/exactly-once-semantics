@@ -2,99 +2,124 @@
 
 ## Prerequisites
 
-* You need to have Java 21 installed. Consider using https://sdkman.io/ to install it.
-  * `sdk install java 21.0.7-tem` # as an example
+* You need to have Java 21 installed. Consider using [SDKMan](https://sdkman.io/) to install it.
+  * `sdk install java 21.0.7-tem` # to install a appropriate Java-Version 
 * You should be able to access the internet to retrieve dependencies
-* You should have https://www.python.org/ installed. Any version from the 3 series should be enough.
-* You should have https://pypi.org/project/pip/ installed. Check it with: `python3 -m pip`
+* You should have [Python](https://www.python.org/) installed. Any version from the 3 series should be enough.
+* You should have [PIP](https://pypi.org/project/pip/) installed. Check it with: `python3 -m pip`
 * You should have docker and docker-compose installed
+* No special IDE is needed, however [IntelliJ IDEA](https://www.jetbrains.com/idea/)/[VS Code](https://code.visualstudio.com/) will be easiest to follow the examples. In case you want to use VScode, consider to instal this extension: [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ## Our example - A naive payment service
 
-In this example we will see an easy payment service. I will use an in memory database to store each processed transaction.\
-To keep the system not to complicated, we will consider a transaction to be processed, when it is stored in the database.\
-Each entry in the database will be one transaction.\
-We will show how the payment service will behave in case of network issues.
+In this example we will work with an easy payment service. I will use an in memory database [(H2)](https://www.h2database.com/html/main.html) to store each processed transaction.
 
-We provided a file with the configured rest endpoints[^1]: [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http)
+To keep the system simple, we will consider a transaction as processed when it is stored in the database.
 
-To mock network issues we will put a proxy server between the Rest-Client and the Payment Service.\
-For that we use [ToxyProxy](https://github.com/Shopify/toxiproxy).
+We will show demonstrate how a naive payment service will behave in case of network issues.
 
-Both services start via `docker-compose.yml` / [docker-compose.yml](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/docker-compose.yml).
+## How to use this project
 
-The system landscape will look like this:
+The System is composed out of two services.
 
 ![image](architecture.svg)
 
-So in each case the client invokes our Payment Service:
- - with `localhost:8888` the request will effecticly go through toxy proxy to the payment service.
- - with `localhost:8080` the request go straight to the payment service.
+* The Payment service running on port 8080
+* A Proxy-Server [(ToxiProxy)](https://github.com/Shopify/toxiproxy) so simulate, that could be used to simulate networking problems
 
-## Setup the system
-Choose the appropriate command for you (if you have podman or docker installed):
+The client can decide whether he wants to connect directly to the payment service (on port 8080) or via the Proxy (on port 8888).
+
+The Proxy Server and the Payment Service, are used via a [REST-API](https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)
+
+We provided two file to make it easy for you to interact with both of them:
+
+ * `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) 
+ * `toxi.http` / [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxi.http).
+
+Now start the system:
+
+in case you have docker:
+
 ```bash
-./build-and-run-podman.sh
+./build-and-run-docker.sh
+```
+and when you have podman
+```bash
 ./build-and-run-docker.sh
 ```
 
-Now you should be able to use the configured rest endpoints from `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) and `toxy.http` / [toxy.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxy.http).
+Now use the above-mentioned REST-Endpoints to interact with the system:
 
-Let's take this tour (please have the system landscape from the picture above in mind):
+ - with `localhost:8888` the request will effectively go through toxy proxy to the payment service.
+ - with `localhost:8080` the request go straight to the payment service.
 
-### Test the connection to the service
+Let's take a tour:
+
+### Test the direct connection to the service
 Use WITHOUT proxy - play a bit around
 1. from `payment.http` -> use `STATS-Endpoint` to assure no money has been transferred
-2. from `payment.http` -> use `DIRECT-Payments-Endpoint` ONE time to transfer 1€.
-3. from `payment.http` -> use `STATS-Endpoint` again to assure the 1€ has been transfered
+2. from `payment.http` -> use `DIRECT-Payments-Endpoint` ONCE  to transfer 1€.
+3. from `payment.http` -> use `STATS-Endpoint` to assure the 1€ has been transferred
 4. from `payment.http` -> use `Delete all transactions` to delete all the money :money_with_wings:
 
 ### Test the connection with issues
 Use WITH proxy / configure proxy
-1. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to assure that it does NOT work - you need to have a configured toxy proxy
-2. from `toxy.http` -> use `Configure Proxy` to configure the toxy proxy 
-3. from `payment.http` -> use `TOXYPROXY-Payments-Endpoint` to transfer 1€
+1. from `payment.http` -> use `TOXIPROXY-Payments-Endpoint` to assure that it does NOT work - you need to have a configured toxi proxy
+2. from `toxi.http` -> use `Configure Proxy` to configure the toxi proxy 
+3. from `payment.http` -> use `TOXIPROXY-Payments-Endpoint` to transfer 1€
 4. from `payment.http` -> use `STATS-Endpoint` to verify that the payment has been processed
 
-You can also here play around, to gain some more money or delete all your savings. Just make sure, everthing works fine.
+You should also play around here, to gain some more money or delete all your savings. Just make sure, everything works fine.
 
-## A distributed system under stress
+## Some more load
 Now we check if the service works for one thousand payments.
 
-In `payments.csv` / [payments.csv](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payments.csv) you find a prepared list of 1000 transactions.\
-There is also a prepared python script `mass_test.py` / [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/mass_test.py) that uses the list as input and issues a post call agains the payment endpoint.
+In [payments.csv](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payments.csv) you find a prepared list of 1000 transactions.\
+There is also a prepared python script [mass_test.py](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/mass_test.py) that uses the list as input and issues a post call agains the payment endpoint.
 
-### Setup for the python script
+### Setup the python script
 ```
 python3 -m venv venv
 source ./venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### perform thousand transactions
-1. from `payment.http` -> use `Delete all transactions` to clear all transactions
-2. run the python script -> `python3 mass_test.py`
-3. from `payment.http` -> use 'STATS-Endpoint' to assert the 1000€ has been transferred
+### Run it with stable connection
+* from `payment.http` -> use `Delete all transactions` to clear all transactions 
+* run the python script -> `python3 mass_test.py`
+* from `payment.http` -> use 'STATS-Endpoint' to assert the 1000€ has been transferred 
+* The output of the script will tell you that it took 1000 attempts to transfer the money
 
 But what will happen when the network connection is unstable?
 
-### perform thousand transactions with a connection under stress
-Configure toxi proxy (`toxy.http` -> `Configure Proxy`) to gain:
-  - a broken connection **before** the request reaches the payment services, with a likelyhood of 30%
-  - a broken connection **after** the request should return to client, again with a likelyhood of 30%
+### Run it with an unstable connection
+Configure toxi proxy (`toxi.http` -> `Configure Proxy`) to gain a broken connection **before** the request reaches the payment services, with a likelihood of 30% and a broken connection **after** the request should return to the client, again with a likelihood of 30%.
 
-Use the following endpoints from `toxy.http` to reach the issues / problems in the conections:
+* Use the following endpoints from `toxy.http` to setup the issues / problems in the connection:
   - `set upstream-reset-peer toxic`
   - `set downstream-reset-peer toxic`
 
-Delete all transactions via `payment.http` - `Delete all transactions`
-
-Run the python script again - `python3 mass_test.py`
+* Delete all transactions via `payment.http` - `Delete all transactions`
+* Run the python script again - `python3 mass_test.py`
   
 Check now again with `payment.http` - `STATS-Endpoint`how much money was really transferred\
-Instead of 1000€ you should see, that there was transferred much less then expected\
+Instead of 1000€ you should see, that there was transferred much less than expected.
+Still there where 1000 attempts to send the money.
 
-How can we make sure, that we exactly will transfer 1000€ (in 1000 Transactions)?
+So for 1000 attempts to send the message of paying, we succeeded in an average of less than once per attempt.
+
+This is called at most guarantee. Consider reading [this from the Apache Kafka docu](https://docs.confluent.io/kafka/design/delivery-semantics.html).
+
+How can we make sure that we exactly will transfer 1000€ (in 1000 Transactions)?
+
+Ask yourself:
+
+What could you infer in case you issue a Rest-Call in case of a broken connection:
+
+* did the payment succeed?
+* or did it fail?
+
+try this out, with this setup.
 
 # Next step - Never pay to little
 Go to branch :computer: [Never pay too little](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/never-pay-too-little)
