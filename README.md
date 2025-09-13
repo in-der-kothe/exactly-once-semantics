@@ -38,8 +38,10 @@ Make sure, all services are shutdown and the system is 'clear' to start again wi
 Setup your system as before:
 ```bash
 ./build-and-run-docker.sh
+# or
 ./build-and-run-podman.sh
 
+# you can skip this, when you still have the venv directory from the previous chapter and have activated that environment
 python3 -m venv venv
 source ./venv/bin/activate
 pip install -r requirements.txt
