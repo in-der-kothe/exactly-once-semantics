@@ -6,11 +6,25 @@ See :computer: [A Naive payment system](https://github.com/in-der-kothe/exactly-
 
 ## Our example - A payment service - Recap
 
-In the previous chapter you saw a pretty easy payment service with its different transactions. You as well played around with these connections and caused minor troubles and investigated the outcomes.
+In the previous chapter, you saw a pretty easy payment service. You played around with these connections and caused minor troubles and investigated the outcomes. You saw, that you will lose messages, in case of network problems.
 
+Can we just retry to send the message until it succeeds?
+
+Let's check.
+
+In this branch the `mass_test.py` has been changed to retry until it got a proper HTTP-Response.
+
+Let's run it...
 ### System landscape
 ![image](architecture.svg)
 
+
+
+* from [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxi.http) use the _configure_, the _set upstream-reset-peer toxic_ and the _set downstream-reset-peer toxic_ endpoints.
+* from [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http) delete transactions and check the stats endpoint
+
+* run the Python script ```python3 ./mass_test.py```
+* 
 ### REST-Services and known commands / REST-calls
 - `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http)
   - use `STATS-Endpoint` to assure no money has been transferred
