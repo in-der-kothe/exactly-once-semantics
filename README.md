@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ### Run it with stable connection
 * from `payment.http` -> use `Delete all transactions` to clear all transactions 
 * run the python script -> `python3 mass_test.py`
-* from `payment.http` -> use 'STATS-Endpoint' to assert the 1000€ has been transferred 
+* from `payment.http` -> use `STATS-Endpoint` to assert the 1000€ has been transferred 
 * The output of the script will tell you that it took 1000 attempts to transfer the money
 
 But what will happen when the network connection is unstable?
