@@ -1,8 +1,8 @@
 # Delivery guarantees in distributed systems
 
-The purpose of this repository is to raise awareness to the fallacies of distributed computing. It provides explantions and strategies to handle with these problems.
+The purpose of this repository is to raise awareness to some of the [fallacies of distributed computing](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/fallacies). It provides explanations and a strategy to handle these problems.
 
-The repository is divided in sevaral branches which represent the different chapters / learnings:
+The repository is divided in several branches which represent the different chapters / learnings:
 - The :book: / `theory` branches explaining the problems and thought experiments. 
 - The :computer: / `code` branches provide code for exploring the programmatic strategies.
 
