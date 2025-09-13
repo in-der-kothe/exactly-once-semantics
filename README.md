@@ -8,7 +8,7 @@ We already knew that we must send a message more than once (The two generals)
 
 So the problem is how to handle the case when we receive a message more than once.
 
-This branch will show you **one way** how you could achieve this: idempotence keys...
+This branch will show you **one way** how you could avoid handling a message more than once: idempotence keys...
 
 ## Let's start
 
