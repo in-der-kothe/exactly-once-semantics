@@ -4,11 +4,11 @@ In the previous chapters, we saw that our system never behaved as we wanted it:
 * once we transferred to less money
 * the other time to much
 
-We already knew, that we must send a message more than once (The two generals)
+We already knew that we must send a message more than once (The two generals)
 
 So the problem is, how to handle the case when we receive a message more than once.
 
-This branch will show you **one way**  how you could achieve this: idempotence keys...
+This branch will show you **one way** how you could achieve this: idempotence keys...
 
 ## Let's start
 
@@ -16,7 +16,7 @@ This branch will show you **one way**  how you could achieve this: idempotence k
 * run the provided python script
 * you should see in the docker output, that the controller now get's an idempotence key.
 
-check the controller implementation. you will see that it just log out an received idempotence key from the request. the python script will send distinct idemtpotence keys for distinct transactions. but in case of a retry it will send the same idempotence key again.
+Check the controller implementation. You will see that it just logs a received idempotence key from the request. The python script will send distinct idempotence keys for distinct transactions. But in case of a retry, it will send the same idempotence key again.
 
 Now it is up to you, change the code, that you will execute a payment only once for the same idempotence key.
 
