@@ -2,7 +2,7 @@
 
 Originated at sun microsystems - L. Peter Deutsch, one of the original sun 'fellows', first created a list of seven fallacies in 1994 around 1997
 
-James Gosling, another sun fellow and the inventor of Java, added the eighth fallacy
+James Gosling, another sun fellow and the inventor of Java, added the eigth fallacy
 
 1. The network is reliable
 2. Latency is zero
