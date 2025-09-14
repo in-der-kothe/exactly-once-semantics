@@ -1,9 +1,5 @@
 # Never pay to little
 
-## Prerequisites
-
-See :computer: [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
-
 ## Our example - A payment service - Recap
 
 In the previous chapter, you saw a pretty easy payment service. You played around with these connections and caused minor troubles and investigated the outcomes. You saw, that you will lose messages, in case of network problems.
@@ -17,7 +13,11 @@ In this branch the `mass_test.py` / [mass_test.py](https://github.com/in-der-kot
 Let's run it...
 
 <details>
-  <summary>Recap - System landscape, setup, commands</summary>
+  <summary>Prerequisites, Recap - System landscape, setup, commands</summary>
+
+## Prerequisites
+
+See :computer: [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
   
 ### System landscape
 ![image](architecture.svg)
