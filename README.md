@@ -73,7 +73,7 @@ In which case will the attempt to save led to that exception:
 
 We configured the **idempotence-key field in the database as unique**. So the database will complain when we attemd to save the very same idempotence key.
 
-## The learings
+## The learnings
 
 Cooperative: client and service/server
 - You have to make sure to **retry always with the very same idempotence key**
@@ -82,5 +82,12 @@ Cooperative: client and service/server
 - **Exactly once delivery is impossible** but **exactly once semantic is achievable**
 - Do **never put effort in sending exactly once**. It is - mathematically proven - impossible
   - You have to cope with multiple messages.
+
+# Summary / Conclusions - The Fallacies
+Go to branch :book: [The eight fallacies](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/fallacies)
+
+```bash
+git checkout theory/fallacies
+```
 
 [^1]: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
