@@ -7,7 +7,7 @@
 * You should be able to access the internet to retrieve dependencies
 * You should have [Python](https://www.python.org/) installed. Any version from the 3 series should be enough.
 * You should have [PIP](https://pypi.org/project/pip/) installed. Check it with: `python3 -m pip`
-* You should have docker and docker-compose installed
+* You should have docker and docker-compose installed (or podman)
 * No special IDE is needed, however [IntelliJ IDEA](https://www.jetbrains.com/idea/) / [VS Code](https://code.visualstudio.com/) will be easiest to follow the examples. In case you want to use VScode, consider installing this extension: [Rest Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ## Our example - A naive payment service
