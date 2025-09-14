@@ -82,8 +82,8 @@ This works when client and server cooperate:
 
  * Tools like Kafka and others make most times something like this under the hood
  * **Exactly once delivery is impossible** but **exactly once semantic is achievable**
-- Do **never put effort in sending exactly once**. It is - mathematically proven - impossible
-  - You have to cope with multiple messages.
+* Do **never put effort in sending exactly once**. It is - mathematically proven - impossible
+* You have to cope with multiple messages.
 
 # Summary / Conclusions - The Fallacies
 Go to branch :book: [The eight fallacies](https://github.com/in-der-kothe/exactly-once-semantics/tree/theory/fallacies)
