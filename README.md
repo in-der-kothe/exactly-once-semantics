@@ -5,7 +5,7 @@
 
 Two armies (red and blue). The blue one is in a vally and on opposite mountains the red one is deployed with one general for ervery mountain side.
 
-**Goal:** red must start one combined attak of blue to win
+**Goal:** red must start one combined attack of blue to win
 
 **Problem:** how to establish a secure communication between these two generals / armies to be sure both armies attak at the same time
 
