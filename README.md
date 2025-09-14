@@ -4,7 +4,7 @@
 
 In case you did not figure out how to cope with multiple messages for one the payment transaction in the previous chapter :computer: - [Avoid paying twice](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/avoid-paying-twice), you will see here **one** solution.
 
-The process of identifying duplicated messages/rest-calls is being called **deduplication**.
+The process of identifying duplicated messages/rest-calls to process just one of them is being called **deduplication**.
 
 <details>
   <summary>Recap - System landscape, setup, commands</summary>
