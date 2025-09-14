@@ -16,7 +16,7 @@ In this example we will work with an easy payment service. We will use an in mem
 
 To keep the system simple, we will consider a transaction as processed when it is stored in the database.
 
-We will show demonstrate how a naive payment service will behave in case of network issues.
+We are going to demonstrate how a naive payment service will behave in case of network issues.
 
 ## How to use this project
 
