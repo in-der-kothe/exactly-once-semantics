@@ -31,7 +31,7 @@ The client can decide whether he wants to connect directly to the payment servic
 
 The Proxy Server and the Payment Service, are used via a [REST-API](https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm).
 
-We provided two file to make it easy for you to interact with both of them:
+We provide you two files to make it easy for you to interact with both of them:
 
  * `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) 
  * `toxi.http` / [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxi.http).
