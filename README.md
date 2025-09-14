@@ -1,61 +1,86 @@
 # Paying exactly once
 
-In case you did not figure out how to cope with multiple messages for the the payment, you will see here one solution.
+## Our example - A payment service - Solution from previous chapter
 
-The process of identifying duplicated messages/rest-calls is being called deduplication.
+In case you did not figure out how to cope with multiple messages for the the payment in the previous chapter :computer: - [Avoid paying twice](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/avoid-paying-twice), you will see here one solution.
 
-## First try
+The process of identifying duplicated messages/rest-calls is being called **deduplication**.
+
+<details>
+  <summary>Prerequisites, Recap - System landscape, setup, commands</summary>
+
+## Prerequisites
+
+See :computer: [A Naive payment system](https://github.com/in-der-kothe/exactly-once-semantics/tree/code/naive-payment-system)
+  
+### System landscape
+![image](architecture.svg)
+
+### REST-Services and known commands / REST-calls
+- `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/payment.http)
+  - use `STATS-Endpoint` to assure no money has been transferred
+  - use `DIRECT-Payments-Endpoint` ONE time to transfer ONE €.
+  - use `Delete all transactions` to delete all the money 💸
+- `toxi.http` / [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/never-pay-too-little/toxi.http)
+  - use 'Configure Proxy' to configure the toxi proxy
+  - `set upstream-reset-peer toxic` - a broken connection before the request reaches the payment services, with a likelyhood of 30%
+  - `set downstream-reset-peer toxic` - a broken connection after the request should return to client, again with a likelyhood of 30%
+
+### System setup -  not essential but maybe helpful
+Make sure, all services are shutdown and the system is 'clear' to start again with a slightly different behaviour.
+
+Setup your system as before:
+```bash
+./build-and-run-docker.sh
+# or
+./build-and-run-podman.sh
+
+# you can skip this, when you still have the venv directory from the previous chapter and have activated that environment
+python3 -m venv venv
+source ./venv/bin/activate
+pip install -r requirements.txt
+```
+</details>
+
+## Let's try it
 
 * start the system
 * configure it as you know it (with the broken connection)
 * run the python script
 
-assert that the script used much more than 1000 attemps.
-assert that exactly 1000€ has been transferred.
+After the python script finished
+* assure that the script used much more than 1000 attemps.
+* assure that exactly 1000€ has been transferred.
 
-this is called exactly once semantic: even if the message has been transferred more than once, that side effect (of paying) has been excecuted exactly once.
+This is called **exactly once semantic**: even if the message has been transferred more than once, that side effect (of paying) has been excecuted exactly once.
 
-## How does it work
+> [!NOTE]
+> How does it work? - Inspect the implementation!
 
-Inspect the implemetation.
+### The controller
 
-### the controller
+It will just forward the idempotence key to the service that processes the payment.
 
-wil just forword the idempotence key to the service that processes the pyment
+### The service
 
-### the service
+The service will try to save the payment with the idempotence key. In this case this yields a certain exception - it will throw a duplicate exception. 
 
-the service will try to save the payment with the idempotence key. in case this yields  an certain exception it will throw an duplicate exception.
+The duplicate exception let the controller to send a **already reported http status code - 208**[^1]. This will be treated by our http client (the python script as a success case).
 
-the duplicate exception let the controller send an http already reported http status code. this will be treated by our http client (the python script as a success case)
+In which case will the attempt to save led to that exception:
 
-In wiche case will the attempt to save led to that exception:
+### The entity
 
-### the entity
+We configured the **idempotence-key field in the database as unique**. So the database will complain when we attemd to save the very same idempotence key.
 
-we configured the idempotence-key field in the database as unique. so the database will complain when we attemd to save the very same idempotence key
+## The learings
 
+Cooperative: client and service/server
+- You have to make sure to **retry always with the very same idempotence key**
+  - You should consider this when your automativ maybe three attemps fails consecutivly
+- Tools like Kafka and other make most times something like this under the hood
+- **Exactly once delivery is impossible** but **exactly once semantic is achievable**
+- Do **never put effort in sending exactly once**. It is - mathematically proven - impossible
+  - You have to cope with multiple messages.
 
-
-### the learings
-
-cooperative: client and service/server
-you have to make sure to retry always with the very same idempotence key
-
-you should consider this when your automativ maybe three attemps fails consecutivly
-
-tools like kafka and other make most times somethign like this under the hood.
-
-exactly once delivery is impossible but exactly once semantic is achivable
-
-do not put effort in sending exactyl once. it it impossible
-
-you have to cope with multiple messages.
-
-
-
-
-
-
-
-
+[^1]: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
