@@ -63,23 +63,25 @@ It will just forward the idempotence key to the service that processes the payme
 
 ### The service
 
-The service will try to save the payment with the idempotence key. In this case this yields a certain exception - it will throw a duplicate exception. 
+The service will try to save the payment with the idempotence key. In case it already processed a request with this idempotence key, the implementation will throw an `AlreadyProcessedException`.
 
-The duplicate exception let the controller to send a **already reported http status code - 208**[^1]. This will be treated by our http client (the python script as a success case).
-
-In which case will the attempt to save led to that exception:
+This exception let the controller send an **already reported http status code - 208**[^1]. This will be treated by our http client (the Python script as a success case).
 
 ### The entity
 
-We configured the **idempotence-key field in the database as unique**. So the database will complain when we attemd to save the very same idempotence key.
+We configured the **idempotence-key field in the database as unique**. 
+So the database will complain when we attempt to save a new entry with the very same idempotence key.
 
 ## The learnings
 
-Cooperative: client and service/server
-- You have to make sure to **retry always with the very same idempotence key**
-  - You should consider this when your automativ maybe three attemps fails consecutivly
-- Tools like Kafka and other make most times something like this under the hood
-- **Exactly once delivery is impossible** but **exactly once semantic is achievable**
+This works when client and server cooperate:
+ * The client must assure that to **retry always with the very same idempotence key**
+ * The client must retry until it succeeds. Before that it could just guess if the request was successful
+ * The server must deduplicate on that key
+
+
+ * Tools like Kafka and others make most times something like this under the hood
+ * **Exactly once delivery is impossible** but **exactly once semantic is achievable**
 - Do **never put effort in sending exactly once**. It is - mathematically proven - impossible
   - You have to cope with multiple messages.
 

@@ -25,7 +25,7 @@ public class PaymentService {
             String message = dive.getMessage();
             if (message != null && message.contains(PaymentEntity.UNIQUE_IDEMPOTENCE_KEY_CONSTRAINT)) {
                 log.error("duplicate detected...");
-                throw new AlreadyProcessRequestException();
+                throw new AlreadyProcessedRequestException();
             }
         }
     }
