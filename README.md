@@ -29,7 +29,7 @@ The System is composed out of two services.
 
 The client can decide whether he wants to connect directly to the payment service (on port 8080) or via the Proxy (on port 8888).
 
-The Proxy Server and the Payment Service, are used via a [REST-API].(https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm)
+The Proxy Server and the Payment Service, are used via a [REST-API](https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm).
 
 We provided two file to make it easy for you to interact with both of them:
 
