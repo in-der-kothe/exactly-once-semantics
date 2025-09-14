@@ -25,13 +25,13 @@ The System is composed out of two services.
 ![image](architecture.svg)
 
 * The Payment service running on port 8080
-* A Proxy-Server ([ToxiProxy](https://github.com/Shopify/toxiproxy)) to simulate networking problems
+* A Proxy-Server ([ToxiProxy](https://github.com/Shopify/toxiproxy)) running on port 8888
 
 The client can decide whether he wants to connect directly to the payment service (on port 8080) or via the Proxy (on port 8888).
 
 The Proxy Server and the Payment Service, are used via a [REST-API](https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm).
 
-We provide you two files to make it easy for you to interact with both of them:
+We prepared two files to make it easier for you to interact with both systems:
 
  * `payment.http` / [payment.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/payment.http) 
  * `toxi.http` / [toxi.http](https://github.com/in-der-kothe/exactly-once-semantics/blob/code/naive-payment-system/toxi.http).
