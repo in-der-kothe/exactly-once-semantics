@@ -106,7 +106,7 @@ Still there where 1000 attempts to send the money.
 
 So for 1000 attempts to send the message of paying, we succeeded in an average of less than once per attempt.
 
-This is called at most guarantee. Consider reading [this from the Apache Kafka docu](https://docs.confluent.io/kafka/design/delivery-semantics.html).
+This is called at most guarantee. Consider reading [this from the Apache Kafka docu](https://docs.confluent.io/kafka/design/delivery-semantics.html#semantic-guarantees).
 
 How can we make sure that we exactly will transfer 1000€ (in 1000 Transactions)?
 
