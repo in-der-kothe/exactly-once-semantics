@@ -7,7 +7,7 @@ In case you did not figure out how to cope with multiple messages for one the pa
 The process of identifying duplicated messages/rest-calls is being called **deduplication**.
 
 <details>
-  <summary>Prerequisites, Recap - System landscape, setup, commands</summary>
+  <summary>Recap - System landscape, setup, commands</summary>
 
 ## Prerequisites
 
