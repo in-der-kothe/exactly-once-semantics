@@ -12,7 +12,7 @@
 
 ## Our example - A naive payment service
 
-In this example we will work with an easy payment service. I will use an in memory database ([H2](https://www.h2database.com/html/main.html)) to store each processed transaction.
+In this example we will work with an easy payment service. We will use an in memory database ([H2](https://www.h2database.com/html/main.html)) to store each processed transaction.
 
 To keep the system simple, we will consider a transaction as processed when it is stored in the database.
 
